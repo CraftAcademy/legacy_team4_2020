@@ -2,7 +2,7 @@
 
 
 feature 'User can create the account' do 
-  let(:registred_user) { FactoryBot.create(:user)} 
+  let(:registered_user) {create(:user)} 
 
   before do
     visit new_user_registration_path
@@ -39,15 +39,18 @@ feature 'User can create the account' do
       end
 
       it 'returns the email is invalid' do
-        expect(page).to have_content 'Email is invalid'
+        expect(page).to have_content '8 characters minimum'
       end
     end
 
     describe 'already used email address' do
-      
+      context do
+        let(:registered_user) {create(:user)} 
+      end
+
       before do
-        fill_in 'Name', with: 'Oliver'
-        fill_in 'Email', with: registred_user.email
+        fill_in 'Name', with: 'Popeye'
+        fill_in 'Email', with: 'user@mail.com'
         fill_in 'Password', with: 'password'
         fill_in 'Password confirmation', with: 'password'
         click_on 'Create'
