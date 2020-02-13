@@ -8,7 +8,7 @@ feature 'User can create the account' do
     visit new_user_registration_path
   end
 
-  describe "successfully" do
+  describe "[Happy path] successfully" do
     before do
       fill_in 'Name', with: "jaime"
       fill_in 'Email', with: "asd@gmail.com"
