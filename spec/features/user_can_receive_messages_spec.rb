@@ -1,9 +1,9 @@
 feature 'User to see an inbox' do
-  let(:registered_user) { FactoryBot.create(:user)} 
-  let(:registered_user2) { FactoryBot.create(:usertwo)}
+  let(:receiver) { FactoryBot.create(:user)} 
+  let(:sender) { FactoryBot.create(:user, name:'John' , email:'jhon@mail.com', password:'123456789')}
 
   before do
-    login_as registered_user
+    login_as receiver
     visit mailbox_sent_path
   end
 
@@ -21,15 +21,13 @@ feature 'User to see an inbox' do
  
     before do
       visit mailbox_inbox_path
-      registered_user.send_message(registered_user2.name, 'Hello Jhon')
-      logout registered_user
-      login_as registered_user2
-      visit mailbox_inbox_path
-    end
+      sender.send_message(receiver, 'james', 'Hello there!')
+      end
 
-    it 'Expects user to have a mail.' do
-      expect(page).to have_content 'James'
-    end
+      it 'should have 1 new message in the inbox' do
+        count = receiver.mailbox.inbox.count
+        expect(count).to eq 1
+      end
   end
 end
 
