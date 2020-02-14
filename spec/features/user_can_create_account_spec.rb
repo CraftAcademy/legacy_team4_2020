@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'pry'
 
 feature 'User can create the account' do 
   let(:registered_user) {create(:user)} 
+  
 
   before do
     visit new_user_registration_path
@@ -44,19 +46,18 @@ feature 'User can create the account' do
     end
 
     describe 'already used email address' do
-      context do
-        let(:registered_user) {create(:user)} 
-      end
+      
 
       before do
-        fill_in 'Name', with: 'Popeye'
-        fill_in 'Email', with: 'user@mail.com'
+        fill_in 'Name', with: 'popeye'
+        fill_in 'Email', with: registered_user.email
         fill_in 'Password', with: 'password'
         fill_in 'Password confirmation', with: 'password'
         click_on 'Create'
       end
 
       it 'returns the email been used already' do
+        binding.pry
         expect(page).to have_content 'Email has already been taken'
       end
     end

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 10 }
   validates :name, presence: true
+  validates :email, uniqueness: true
   validates_uniqueness_of :name
 
   acts_as_messageable
