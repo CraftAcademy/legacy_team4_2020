@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 10 }
   validates :name, presence: true
+  validates :password, length: { minimum: 8 }
+  validates :password, presence: true
   validates :email, uniqueness: true
   validates_uniqueness_of :name
 
