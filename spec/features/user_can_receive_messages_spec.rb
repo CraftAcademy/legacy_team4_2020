@@ -1,6 +1,6 @@
 feature 'User to see an inbox' do
-  let(:receiver) { FactoryBot.create(:user)} 
-  let(:sender) { FactoryBot.create(:user, name:'John' , email:'jhon@mail.com', password:'123456789')}
+  let(:receiver) {create(:user)} 
+  let(:sender) {create(:user, name:'John' , email:'jhon@mail.com', password:'123456789')}
 
   before do
     login_as receiver
